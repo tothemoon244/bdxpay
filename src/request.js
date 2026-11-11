@@ -3,10 +3,11 @@ const MAX_AMOUNT_LENGTH = 40;
 const NETWORKS = new Set(["testnet", "mainnet"]);
 
 // Conservative shape check only; not proof that an address is valid.
-// TODO(Beldex): replace with official SDK/network address validation.
+// Beldex wallet addresses may begin with 9; keep B as an accepted legacy
+// prefix until validation can use the official Beldex SDK.
 export function isPlausibleBeldexAddress(value) {
   return typeof value === "string" &&
-    /^B[1-9A-HJ-NP-Za-km-z]{80,110}$/.test(value.trim());
+    /^[9B][1-9A-HJ-NP-Za-km-z]{80,110}$/.test(value.trim());
 }
 
 export function validateRequest({ to, amount, note = "", expiry = "", network }) {
